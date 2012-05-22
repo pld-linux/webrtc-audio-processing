@@ -4,19 +4,21 @@
 # make no changes to the code to make tracking upstream code easy.
 # [1] http://code.google.com/p/webrtc/
 Summary:	WebRTC Audio Processing library
+Summary(pl.UTF-8):	Biblioteka WebRTC Audio Processing
 Name:		webrtc-audio-processing
 Version:	0.1
 Release:	1
 License:	BSD
 Group:		Libraries
-URL:		http://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing/
 Source0:	http://freedesktop.org/software/pulseaudio/webrtc-audio-processing/%{name}-%{version}.tar.xz
 # Source0-md5:	da25bb27812c8404060d4cc0dc712f04
 Patch0:		link.patch
-BuildRequires:	autoconf
+URL:		http://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing/
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
+BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -27,14 +29,39 @@ APIs. The WebRTC components have been optimized to best serve this
 purpose. WebRTC implements the W3C's proposal for video conferencing
 on the web.
 
+%description -l pl.UTF-8
+WebRTC to projekt o otwartych źródłach dodający obsługę komunikacji
+w czasie rzeczywistym (RTC - Real-Time Communications) poprzez proste
+API JavaScriptu. Komponenty WebRTC zostały zoptymalizowane, aby jak
+najlepiej sprawdzały się w tym zastosowaniu. WebRTC implementuje
+propozycje W3C do wideokonferencji w sieci.
+
 %package devel
-Summary:	WebRTC Audio Processing library and header files
+Summary:	Header files for WebRTC Audio Processing library
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki WebRTC Audio Processing
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libstdc++-devel
 
 %description devel
-This contains the libraries and header files needed to develop
-programs which make use of webrtc-audio-processing.
+This package contains the header files needed to develop programs
+which make use of WebRTC Audio Processing library.
+
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagłówkowe potrzebne do tworzenia programów
+wykorzystujących bibliotekę WebRTC Audio Processing.
+
+%package static
+Summary:	Static WebRTC Audio Processing library
+Summary(pl.UTF-8):	Biblioteka statyczna WebRTC Audio Processing
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static WebRTC Audio Processing library.
+
+%description static -l pl.UTF-8
+Biblioteka statyczna WebRTC Audio Processing.
 
 %prep
 %setup -q
@@ -46,8 +73,7 @@ programs which make use of webrtc-audio-processing.
 %{__autoconf}
 %{__automake}
 %configure \
-	--disable-silent-rules \
-	--disable-static
+	--disable-silent-rules
 %{__make}
 
 %install
@@ -55,6 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# obsoleted by pkg-config
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
@@ -67,10 +94,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING NEWS PATENTS README
 %attr(755,root,root) %{_libdir}/libwebrtc_audio_processing.so.*.*.*
-%{_libdir}/libwebrtc_audio_processing.so.0
+%attr(755,root,root) %ghost %{_libdir}/libwebrtc_audio_processing.so.0
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libwebrtc_audio_processing.so
 %{_includedir}/webrtc_audio_processing
-%{_libdir}/libwebrtc_audio_processing.so
 %{_pkgconfigdir}/webrtc-audio-processing.pc
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libwebrtc_audio_processing.a
