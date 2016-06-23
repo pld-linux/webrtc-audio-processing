@@ -6,13 +6,12 @@
 Summary:	WebRTC Audio Processing library
 Summary(pl.UTF-8):	Biblioteka WebRTC Audio Processing
 Name:		webrtc-audio-processing
-Version:	0.1
-Release:	2
+Version:	0.3
+Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://freedesktop.org/software/pulseaudio/webrtc-audio-processing/%{name}-%{version}.tar.xz
-# Source0-md5:	da25bb27812c8404060d4cc0dc712f04
-Patch0:		link.patch
+# Source0-md5:	336ae032f608e65808ac577cde0ab72c
 URL:		http://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -65,7 +64,6 @@ Biblioteka statyczna WebRTC Audio Processing.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -92,9 +90,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING NEWS PATENTS README
+%doc AUTHORS COPYING NEWS webrtc/PATENTS README
 %attr(755,root,root) %{_libdir}/libwebrtc_audio_processing.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libwebrtc_audio_processing.so.0
+%attr(755,root,root) %ghost %{_libdir}/libwebrtc_audio_processing.so.1
 
 %files devel
 %defattr(644,root,root,755)
