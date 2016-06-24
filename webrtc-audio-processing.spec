@@ -10,12 +10,12 @@ Version:	0.3
 Release:	1
 License:	BSD
 Group:		Libraries
-Source0:	http://freedesktop.org/software/pulseaudio/webrtc-audio-processing/%{name}-%{version}.tar.xz
+Source0:	https://freedesktop.org/software/pulseaudio/webrtc-audio-processing/%{name}-%{version}.tar.xz
 # Source0-md5:	336ae032f608e65808ac577cde0ab72c
-URL:		http://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing/
+URL:		https://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
-BuildRequires:	libstdc++-devel
+BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	libtool
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
