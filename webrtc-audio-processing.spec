@@ -3,6 +3,14 @@
 # AudioProcessing module from the WebRTC[1] project. The ideal case is that we
 # make no changes to the code to make tracking upstream code easy.
 # [1] http://code.google.com/p/webrtc/
+#
+# Conditional build:
+%bcond_without	neon		# without ARM NEON instructions
+
+%ifnarch armv7l armv7hl armv7hnl armv8l armv8hl armv8hnl armv8hcnl aarch64
+%undefine	with_neon
+%endif
+
 Summary:	WebRTC Audio Processing library
 Summary(pl.UTF-8):	Biblioteka WebRTC Audio Processing
 Name:		webrtc-audio-processing
@@ -71,6 +79,7 @@ Biblioteka statyczna WebRTC Audio Processing.
 %{__autoconf}
 %{__automake}
 %configure \
+	%{!?with_neon:--disable-neon} \
 	--disable-silent-rules
 %{__make}
 
