@@ -14,6 +14,7 @@
 Summary:	WebRTC Audio Processing library
 Summary(pl.UTF-8):	Biblioteka WebRTC Audio Processing
 Name:		webrtc-audio-processing
+# keep 0.x here; for versions >= 1 (parallel installable with 0.x) see webrtc-audio-processing1.spec
 Version:	0.3.1
 Release:	1
 License:	BSD
